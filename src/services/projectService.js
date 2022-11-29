@@ -13,9 +13,39 @@ const getProjectByProjectId = async (projectId) => {
   project.gathered_People = project.cnt;
   project.gathered_amount = gathered_amount;
   project.amountPercent = amountPercent;
+  project.id = projectId;
   return project;
+};
+
+const registerProject = async (
+  userId,
+  title,
+  summary,
+  url,
+  category,
+  story,
+  price,
+  gift,
+  gift_information,
+  date_start,
+  date_end
+) => {
+  return await projectDao.registerProject(
+    userId,
+    title,
+    summary,
+    url,
+    category,
+    story,
+    price,
+    gift,
+    gift_information,
+    date_start,
+    date_end
+  );
 };
 
 module.exports = {
   getProjectByProjectId,
+  registerProject,
 };

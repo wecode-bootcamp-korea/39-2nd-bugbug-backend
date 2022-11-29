@@ -1,4 +1,6 @@
 const { database } = require("./dataSource");
+const { raiseCustomError } = require("../utils/error");
+const { deleteFile } = require("../utils/s3");
 
 const getProjectByProjectId = async (projectId) => {
   const [project] = await database.query(
@@ -38,6 +40,58 @@ const getProjectByProjectId = async (projectId) => {
   return project;
 };
 
+const registerProject = async (
+  userId,
+  title,
+  summary,
+  url,
+  category,
+  story,
+  price,
+  gift,
+  gift_information,
+  date_start,
+  date_end
+) => {
+  try {
+    return await database.query(
+      `INSERT INTO
+        projects(
+          user_id,
+          type_id,
+          name,
+          img_url,
+          summary,
+          story,
+          gift,
+          gift_information,
+          target_amount,
+          opening,
+          deadline)
+      VALUES(?,?,?,?,?,?,?,?,?,?,?)
+      `,
+      [
+        userId,
+        category,
+        title,
+        url,
+        summary,
+        story,
+        gift,
+        gift_information,
+        price,
+        date_start,
+        date_end,
+      ]
+    );
+  } catch {
+    const key = url.split("/")[3];
+    deleteFile(key);
+    raiseCustomError("INVALID_DATA_INPUT", 500);
+  }
+};
+
 module.exports = {
   getProjectByProjectId,
+  registerProject,
 };
