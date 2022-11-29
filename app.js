@@ -1,33 +1,21 @@
-require("dotenv").config();
-
-const http = require("http");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
-const { globalErrorHandler } = require("./src / utils");
+const routes = require("./src/routes");
+const { globalErrorHandler } = require("./src/utils/error");
 
-const app = express();
+const createApp = () => {
+  const app = express();
 
-app.use(cors());
-app.use(morgan("combined"));
-app.use(express.json());
+  app.use(express.json());
+  app.use(cors());
+  app.use(morgan("combined"));
 
-const server = http.createServer(app);
-const PORT = process.env.PORT;
+  app.use(routes);
+  app.use(globalErrorHandler);
 
-app.get("/ping", function (req, res, next) {
-  res.json({ message: "pong" });
-});
-
-app.use(globalErrorHandler);
-
-const start = async () => {
-  try {
-    server.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
-  } catch (err) {
-    console.error(err);
-  }
+  return app;
 };
 
-start();
+module.exports = { createApp };
