@@ -7,11 +7,11 @@ const signIn = catchAsync(async (req, res) => {
   if (!code) raiseCustomError("KEY_ERROR", 401);
 
   const data = await userService.getKakaoAccessToken(code);
-  const kakaoAccessToken = data["access_token"];
+  const kakaoAccessToken = data.data["access_token"];
   const kakaoUserInfo = await userService.getKakaoUserInfo(kakaoAccessToken);
-  const kakaoId = kakaoUserInfo["id"];
-  const name = kakaoUserInfo.properties["nickname"];
-  const email = kakaoUserInfo["kakao_account"]["email"];
+  const kakaoId = kakaoUserInfo.data["id"];
+  const name = kakaoUserInfo.data.properties["nickname"];
+  const email = kakaoUserInfo.data["kakao_account"]["email"];
 
   const userInfo = await userService.getUserByKaKaoId(kakaoId, name, email);
 

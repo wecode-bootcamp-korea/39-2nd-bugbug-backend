@@ -16,7 +16,7 @@ const loginRequired = async (req, res, next) => {
     process.env.secretKey
   );
 
-  const user = await getUserById(decoded.id);
+  const user = await getUserById(decoded.userId);
 
   if (!user) {
     const error = new Error("USER_DOES_NOT_EXIST");
