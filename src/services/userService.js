@@ -58,7 +58,9 @@ const getUserByKaKaoId = async (kakaoId, name, email) => {
     user = await userDao.getUserByKaKaoId(kakaoId);
   }
 
-  if (user) await updateUserInfo(kakaoId, name, email);
+  if (user) {
+    await updateUserInfo(kakaoId, name, email);
+  }
 
   const userId = user.id;
 
@@ -66,7 +68,7 @@ const getUserByKaKaoId = async (kakaoId, name, email) => {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
-  return { accessToken: accessToken, userId: userId };
+  return { accessToken: accessToken };
 };
 
 const getUserById = async (id) => {

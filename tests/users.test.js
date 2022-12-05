@@ -49,40 +49,46 @@ describe("Test/ Get Project By Project Id", () => {
 
   it("Success : should return project data with 200 status code when authorization code exists", async () => {
     const token = {
-      access_token: "7X9tBLERTEm8N2ED1h5gndDDS7pA4sgBUgmEzoYHCj10lwAAAYTQeliM",
-      token_type: "bearer",
-      refresh_token: "fdKsUzBORKBu5dpgvrAX3KsHD8Lcp6MEa1FPMfogCj10lwAAAYTQeliL",
-      expires_in: 21599,
-      scope: "account_email profile_image profile_nickname story_permalink",
-      refresh_token_expires_in: 5183999,
+      data: {
+        access_token:
+          "7X9tBLERTEm8N2ED1h5gndDDS7pA4sgBUgmEzoYHCj10lwAAAYTQeliM",
+        token_type: "bearer",
+        refresh_token:
+          "fdKsUzBORKBu5dpgvrAX3KsHD8Lcp6MEa1FPMfogCj10lwAAAYTQeliL",
+        expires_in: 21599,
+        scope: "account_email profile_image profile_nickname story_permalink",
+        refresh_token_expires_in: 5183999,
+      },
     };
 
     const userInfo = {
-      id: 2554897411,
-      connected_at: "2022-11-29T08:00:57Z",
-      properties: {
-        nickname: "김세호",
-        profile_image:
-          "http://k.kakaocdn.net/dn/dq2lam/btrQ0HvOklm/C4qYtcgQJnMrJGtmnZT2rk/img_640x640.jpg",
-        thumbnail_image:
-          "http://k.kakaocdn.net/dn/dq2lam/btrQ0HvOklm/C4qYtcgQJnMrJGtmnZT2rk/img_110x110.jpg",
-      },
-      kakao_account: {
-        profile_nickname_needs_agreement: false,
-        profile_image_needs_agreement: false,
-        profile: {
+      data: {
+        id: 2554897411,
+        connected_at: "2022-11-29T08:00:57Z",
+        properties: {
           nickname: "김세호",
-          thumbnail_image_url:
-            "http://k.kakaocdn.net/dn/dq2lam/btrQ0HvOklm/C4qYtcgQJnMrJGtmnZT2rk/img_110x110.jpg",
-          profile_image_url:
+          profile_image:
             "http://k.kakaocdn.net/dn/dq2lam/btrQ0HvOklm/C4qYtcgQJnMrJGtmnZT2rk/img_640x640.jpg",
-          is_default_image: false,
+          thumbnail_image:
+            "http://k.kakaocdn.net/dn/dq2lam/btrQ0HvOklm/C4qYtcgQJnMrJGtmnZT2rk/img_110x110.jpg",
         },
-        has_email: true,
-        email_needs_agreement: false,
-        is_email_valid: true,
-        is_email_verified: true,
-        email: "pabeba@naver.com",
+        kakao_account: {
+          profile_nickname_needs_agreement: false,
+          profile_image_needs_agreement: false,
+          profile: {
+            nickname: "김세호",
+            thumbnail_image_url:
+              "http://k.kakaocdn.net/dn/dq2lam/btrQ0HvOklm/C4qYtcgQJnMrJGtmnZT2rk/img_110x110.jpg",
+            profile_image_url:
+              "http://k.kakaocdn.net/dn/dq2lam/btrQ0HvOklm/C4qYtcgQJnMrJGtmnZT2rk/img_640x640.jpg",
+            is_default_image: false,
+          },
+          has_email: true,
+          email_needs_agreement: false,
+          is_email_valid: true,
+          is_email_verified: true,
+          email: "pabeba@naver.com",
+        },
       },
     };
     await axios.mockResolvedValue(token);
