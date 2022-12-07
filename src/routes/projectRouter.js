@@ -9,5 +9,6 @@ const router = express.Router();
 
 router.get("/:projectId", projectController.getProjectByProjectId);
 router.post("", loginRequired, upload, projectController.registerProject);
+router.get("", projectController.getFilterByProjectType);
 
 module.exports = router;

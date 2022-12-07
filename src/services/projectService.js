@@ -45,7 +45,23 @@ const registerProject = async (
   );
 };
 
+const getFilterByProjectType = async (projectType) => {
+  let projectT;
+  const projectFiltering = (projectType) => {
+    if (!projectType) {
+      return (projectT = ``);
+    }
+    projectT = `WHERE p.type_id = ${projectType}`;
+
+    return projectT;
+  };
+  await projectFiltering(projectType);
+  let filterByProjectType = await projectDao.getFilterByProjectType(projectT);
+  return filterByProjectType;
+};
+
 module.exports = {
   getProjectByProjectId,
   registerProject,
+  getFilterByProjectType,
 };
