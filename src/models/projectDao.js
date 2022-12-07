@@ -91,7 +91,38 @@ const registerProject = async (
   }
 };
 
+const getFilterByProjectType = async (projectType) => {
+  const filterByProjectType = await database.query(
+    `SELECT
+    p.id,
+    pt.type,
+    p.name,
+    p.gift,
+    p.img_url,
+    p.summary,
+    p.target_amount,
+    p.deadline,
+    c.creator_nickname,
+    OD.o,
+    OD.o * p.gift AS gatheredAmount
+  FROM
+    projects p
+    JOIN project_types pt ON p.type_id = pt.id
+    JOIN creators c ON c.user_id = p.user_id
+    LEFT JOIN (
+      SELECT 
+		project_id,
+      count(*) o
+    FROM
+    orders GROUP BY project_id) OD ON p.id = OD.project_id
+  ${projectType}
+`
+  );
+  return filterByProjectType;
+};
+
 module.exports = {
   getProjectByProjectId,
   registerProject,
+  getFilterByProjectType,
 };
