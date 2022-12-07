@@ -18,6 +18,14 @@ const signIn = catchAsync(async (req, res) => {
   return res.status(200).json(userInfo);
 });
 
+const nicknameAppear = catchAsync(async (req, res) => {
+  const userId = req.user.id;
+  const user = await userService.getUserById(userId);
+
+  return res.status(200).json(user);
+});
+
 module.exports = {
   signIn,
+  nicknameAppear,
 };
