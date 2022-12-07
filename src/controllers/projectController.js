@@ -50,7 +50,15 @@ const registerProject = catchAsync(async (req, res) => {
   return res.status(201).json({ message: "Project registered" });
 });
 
+const getFilterByProjectType = catchAsync(async (req, res) => {
+  const filterByProjectType = await projectService.getFilterByProjectType(
+    req.query.type
+  );
+  return res.status(200).json(filterByProjectType);
+});
+
 module.exports = {
   getProjectByProjectId,
   registerProject,
+  getFilterByProjectType,
 };
