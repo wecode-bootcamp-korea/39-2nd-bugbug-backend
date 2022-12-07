@@ -47,7 +47,8 @@ const getUserById = async (id) => {
   const result = await database.query(
     `
 		SELECT 
-			id
+			id,
+      nickname
 		FROM users
 		WHERE id=?`,
     [id]
